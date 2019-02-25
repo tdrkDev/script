@@ -1,0 +1,119 @@
+#!/bin/bash
+       echo -n "
+Roman   - R
+Build   - B
+Prepare - P
+System  - S
+
+Select action:
+
+u) Update script
+
+s) Download tree & vendor  
+
+p) Patch ROM (LOS based) for work on MT6572 (kernel 3.4.67)  
+      
+los) Download LOS 14.1 to your folder (select: 'prepare your_folder' )
+
+Your choose: "
+
+read item
+case "$item" in
+    los|LOS) if [ -n "$1" ]
+then
+echo "Starting"
+rm -rf ~/$1
+cd ~/$1 && repo init -u git://github.com/LineageOS/android.git -b cm-14.1
+cd ~/$1 && repo sync
+echo "Done"
+exit 0
+else
+echo "Please run 'prepare your_folder'"
+exit 0
+fi
+        ;;
+    s|S) if [ -n "$1" ]
+then
+  echo -n "RBPS -
+Roman
+Build
+Prepare
+System
+
+Select device:
+
+1) Lenovo A369i (LOLIPOP)
+
+2) Lenovo A369i (KitKat)
+
+3) Micromax A102
+
+4) Explay JoyTV
+
+Your choose: "
+
+read item
+case "$item" in
+    
+1) echo "Downloading"
+git clone -q https://github.com/melekpro/Android-Device-Lenovo-A369i-LP ~/$1/device/Lenovo/A369i/
+git clone -q https://github.com/melekpro/Android-Vendor-Lenovo-A369i-LP ~/$1/vendor/Lenovo/A369i/
+;;
+2) echo "Downloading"
+git clone -q https://github.com/Manish4586/android_device_lenovo_a369i ~/$1/device/lenovo/a369i/
+git clone -q https://github.com/Manish4586/android_vendor_lenovo_a369i ~/$1/vendor/lenovo/a369i/
+;;
+3) echo "Downloading"
+git clone -q https://github.com/TestMT6572/android_device_Micromax_A102 ~/$1/device/Micromax/A102/
+git clone -q https://github.com/TestMT6572/android_vendor_Micromax_A102 ~/$1/vendor/Micromax/A102/
+;;
+4) echo "Downloading"
+git clone -q https://github.com/TestMT6572/android_device_Explay_JoyTV ~/$1/device/Explay/JoyTV/
+git clone -q https://github.com/TestMT6572/android_vendor_Explay_JoyTV ~/$1/vendor/Explay/JoyTV/
+;;
+*) echo "What u write?"
+;;
+esac
+else
+echo "Please run 'prepare your_folder'"
+exit 0
+fi
+        ;;
+
+p|P) if [ -n "$1" ]
+then
+echo "Removing old folders..."
+rm -Rfv ~/$1/external/wpa_supplicant_8
+rm -Rfv ~/$1/frameworks/av
+rm -Rfv ~/$1/frameworks/base
+rm -Rfv ~/$1/frameworks/native
+rm -Rfv ~/$1/frameworks/opt/telephony
+rm -Rfv ~/$1/packages/apps/Dialer
+rm -Rfv ~/$1/packages/services/Telephony
+rm -Rfv ~/$1/system/bt
+rm -Rfv ~/$1/system/core
+rm -Rfv ~/$1/system/netd
+rm -Rfv ~/$1/system/sepolicy
+rm -Rfv ~/$1/vendor/codeaurora/telephony
+echo "Trying to patch..."
+cp -rv ~/android/patches/external/. ~/$1/external/
+cp -rv ~/android/patches/frameworks/. ~/$1/frameworks/
+cp -rv ~/android/patches/packages/. ~/$1/packages/
+cp -rv ~/android/patches/system/. ~/$1/system/
+cp -rv ~/android/patches/vendor/. ~/$1/vendor
+echo "Patched!"
+exit 0
+ else
+echo "Please run 'prepare your_folder'"
+exit 0
+fi
+;;
+u|U) echo "Your version:"
+cat /home/$USER/bin/prepare/version/version.txt
+git clone -q https://github.com/RomanDesigner/script-updater /tmp/scriptver/
+cd /tmp/scriptver/ && chmod +x updateScript && ./updateScript
+
+;;
+*) echo "What u write?"
+;;
+esac
