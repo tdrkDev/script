@@ -7,6 +7,8 @@ System  - S
 
 Select action:
 
+mk) Build a ROM
+
 u) Update script
 
 s) Download tree & vendor  
@@ -112,6 +114,36 @@ u|U) echo "Your version:"
 cat /home/$USER/bin/prepare/version/version.txt
 git clone -q https://github.com/RomanDesigner/script-updater /home/$USER/prepare/tmp/
 cd /home/$USER/prepare/tmp/ && chmod +x updateScript && ./updateScript
+;;
+rom|ROM) if [ -n "$1" ]
+then
+echo "Start build in: "/home/$USER/"$1"/"
+sleep 1
+echo -n "Enter device name: "
+read device
+echo "Device name: "$device""
+. build/envsetup.sh
+export LC_ALL=C
+lunch "$device"
+echo -n "Write n for disable cache,
+or Write cache space (in Gigabytes): "
+
+read ccache_space
+
+case "$ccache_space" in
+    
+n|N) echo "Ccache disabled."
+;;
+*) prebuilts/misc/linux-x86/ccache/ccache -M "$ccache_space"G
+;;
+esac
+mka bacon
+echo "Done"
+exit 0
+else
+echo "Please run 'prepare your_folder'"
+exit 0
+fi
 
 ;;
 *) echo "What u write?"
