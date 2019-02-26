@@ -115,7 +115,7 @@ cat /home/$USER/bin/prepare/version/version.txt
 git clone -q https://github.com/RomanDesigner/script-updater /home/$USER/prepare/tmp/
 cd /home/$USER/prepare/tmp/ && chmod +x updateScript && ./updateScript
 ;;
-rom|ROM) if [ -n "$1" ]
+mk|MK) if [ -n "$1" ]
 then
 echo "Start build in: "/home/$USER/"$1"/"
 sleep 1
