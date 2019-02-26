@@ -110,8 +110,8 @@ fi
 ;;
 u|U) echo "Your version:"
 cat /home/$USER/bin/prepare/version/version.txt
-git clone -q https://github.com/RomanDesigner/script-updater /tmp/scriptver/
-cd /tmp/scriptver/ && chmod +x updateScript && ./updateScript
+git clone -q https://github.com/RomanDesigner/script-updater /home/$USER/prepare/tmp/
+cd /home/$USER/prepare/tmp/ && chmod +x updateScript && ./updateScript
 
 ;;
 *) echo "What u write?"
