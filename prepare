@@ -124,7 +124,7 @@ read device
 echo "Device name: "$device""
 cd /home/$USER/"$1" && . build/envsetup.sh
 cd /home/$USER/"$1" && export LC_ALL=C
-cd /home/$USER/"$1" && lunch "$device"
+cd /home/$USER/"$1" && lunch "$device"-userdebug
 echo -n "Write n for disable cache or Write cache space (in Gigabytes): "
 
 read ccache_space
