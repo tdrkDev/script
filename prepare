@@ -4,19 +4,13 @@ Roman   - R
 Build   - B
 Prepare - P
 System  - S
-
 Select action:
-
 mk) Build a ROM
-
 u) Update script
-
 s) Download tree & vendor  
-
 p) Patch ROM (LOS based) for work on MT6572 (kernel 3.4.67)  
       
 los) Download LOS 14.1 to your folder (select: 'prepare your_folder' )
-
 Your choose: "
 
 read item
@@ -41,17 +35,11 @@ Roman
 Build
 Prepare
 System
-
 Select device:
-
 1) Lenovo A369i (LOLIPOP)
-
 2) Lenovo A369i (KitKat)
-
 3) Micromax A102
-
 4) Explay JoyTV
-
 Your choose: "
 
 read item
@@ -117,7 +105,7 @@ cd /home/$USER/prepare/tmp/ && chmod +x updateScript && ./updateScript
 ;;
 mk|MK) if [ -n "$1" ]
 then
-echo "Start build in: "/home/$USER/"$1"/"
+echo "Start build in: /home/$USER/"$1"/"
 sleep 1
 echo -n "Enter device name: "
 read device
@@ -126,9 +114,7 @@ cd /home/$USER/"$1" && . build/envsetup.sh
 cd /home/$USER/"$1" && export LC_ALL=C
 cd /home/$USER/"$1" && lunch "$device"-userdebug
 echo -n "Write n for disable cache or Write cache space (in Gigabytes): "
-
 read ccache_space
-
 case "$ccache_space" in
     
 n|N) echo "Ccache disabled."
@@ -143,7 +129,6 @@ else
 echo "Please run 'prepare your_folder'"
 exit 0
 fi
-
 ;;
 *) echo "What u write?"
 ;;
