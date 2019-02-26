@@ -122,11 +122,10 @@ sleep 1
 echo -n "Enter device name: "
 read device
 echo "Device name: "$device""
-. build/envsetup.sh
-export LC_ALL=C
-lunch "$device"
-echo -n "Write n for disable cache,
-or Write cache space (in Gigabytes): "
+cd /home/$USER/"$1" && . build/envsetup.sh
+cd /home/$USER/"$1" && export LC_ALL=C
+cd /home/$USER/"$1" && lunch "$device"
+echo -n "Write n for disable cache or Write cache space (in Gigabytes): "
 
 read ccache_space
 
@@ -134,10 +133,10 @@ case "$ccache_space" in
     
 n|N) echo "Ccache disabled."
 ;;
-*) prebuilts/misc/linux-x86/ccache/ccache -M "$ccache_space"G
+*) cd /home/$USER/"$1" && prebuilts/misc/linux-x86/ccache/ccache -M "$ccache_space"G
 ;;
 esac
-mka bacon
+cd /home/$USER/"$1" && mka bacon
 echo "Done"
 exit 0
 else
