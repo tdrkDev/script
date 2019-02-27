@@ -1,5 +1,5 @@
 #!/bin/bash
-       echo -ne "
+       echo -n "
 Roman   - R
 Build   - B
 Prepare - P
@@ -36,7 +36,7 @@ fi
         ;;
     s|S) if [ -n "$1" ]
 then
-  echo -ne "RBPS -
+  echo -n "RBPS -
 Roman
 Build
 Prepare
@@ -51,27 +51,27 @@ Your choose: \r"
 read item
 case "$item" in
     
-1) echo -ne "Downloading\r"
+1) echo -n "Downloading\r"
 git clone -q https://github.com/melekpro/Android-Device-Lenovo-A369i-LP ~/$1/device/Lenovo/A369i/
 git clone -q https://github.com/melekpro/Android-Vendor-Lenovo-A369i-LP ~/$1/vendor/Lenovo/A369i/
 echo -ne "Done\r"
 ;;
-2) echo -ne "Downloading\r"
+2) echo -n "Downloading\r"
 git clone -q https://github.com/Manish4586/android_device_lenovo_a369i ~/$1/device/lenovo/a369i/
 git clone -q https://github.com/Manish4586/android_vendor_lenovo_a369i ~/$1/vendor/lenovo/a369i/
 echo -ne "Done\r"
 ;;
-3) echo -ne "Downloading\r"
+3) echo -n "Downloading\r"
 git clone -q https://github.com/AndroidDevelopersTeam/android_device_Micromax_A102 ~/$1/device/Micromax/A102/
 git clone -q https://github.com/AndroidDevelopersTeam/android_vendor_Micromax_A102 ~/$1/vendor/Micromax/A102/
 echo -ne "Done\r"
 ;;
-4) echo -ne "Downloading\r"
+4) echo -n "Downloading\r"
 git clone -q https://github.com/TestMT6572/android_device_Explay_JoyTV ~/$1/device/Explay/JoyTV/
 git clone -q https://github.com/TestMT6572/android_vendor_Explay_JoyTV ~/$1/vendor/Explay/JoyTV/
 echo -ne "Done\r"
 ;;
-*) echo -ne "What u write?\r"
+*) echo -n "What u write?\r"
 ;;
 esac
 else
@@ -115,13 +115,13 @@ cd /home/$USER/prepare/tmp/ && chmod +x updateScript && ./updateScript
 ;;
 mk|MK) if [ -n "$1" ]
 then
-echo -ne "Start build in: /home/$USER/"$1"/ \r"
+echo -n "Start build in: /home/$USER/"$1"/ \r"
 sleep 1
-echo -ne "Enter device name: \r"
+echo -n "Enter device name: \r"
 read device
-echo -ne "Enter build type (eng, user, userdebug): \r"
+echo -n "Enter build type (eng, user, userdebug): \r"
 read type
-echo -ne "Device name: "$device"
+echo -n "Device name: "$device"
 Build type: "$type"\r"
 sleep 1
 cd /home/$USER/"$1" && . build/envsetup.sh
