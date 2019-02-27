@@ -1,5 +1,5 @@
 #!/bin/bash
-       echo -n "
+       echo -ne "
 Roman   - R
 Build   - B
 Prepare - P
@@ -17,7 +17,7 @@ p) Patch ROM (LOS based) for work on MT6572 (kernel 3.4.67)
       
 los) Download LOS 14.1 to your folder (select: 'prepare your_folder' )
 
-Your choose: "
+Your choose: \r"
 
 read item
 case "$item" in
@@ -36,7 +36,7 @@ fi
         ;;
     s|S) if [ -n "$1" ]
 then
-  echo -n "RBPS -
+  echo -ne "RBPS -
 Roman
 Build
 Prepare
@@ -46,28 +46,32 @@ Select device:
 2) Lenovo A369i (KitKat)
 3) Micromax A102
 4) Explay JoyTV
-Your choose: "
+Your choose: \r"
 
 read item
 case "$item" in
     
-1) echo "Downloading"
+1) echo -ne "Downloading\r"
 git clone -q https://github.com/melekpro/Android-Device-Lenovo-A369i-LP ~/$1/device/Lenovo/A369i/
 git clone -q https://github.com/melekpro/Android-Vendor-Lenovo-A369i-LP ~/$1/vendor/Lenovo/A369i/
+echo -ne "Done\r"
 ;;
-2) echo "Downloading"
+2) echo -ne "Downloading\r"
 git clone -q https://github.com/Manish4586/android_device_lenovo_a369i ~/$1/device/lenovo/a369i/
 git clone -q https://github.com/Manish4586/android_vendor_lenovo_a369i ~/$1/vendor/lenovo/a369i/
+echo -ne "Done\r"
 ;;
-3) echo "Downloading"
-git clone -q https://github.com/TestMT6572/android_device_Micromax_A102 ~/$1/device/Micromax/A102/
-git clone -q https://github.com/TestMT6572/android_vendor_Micromax_A102 ~/$1/vendor/Micromax/A102/
+3) echo -ne "Downloading\r"
+git clone -q https://github.com/AndroidDevelopersTeam/android_device_Micromax_A102 ~/$1/device/Micromax/A102/
+git clone -q https://github.com/AndroidDevelopersTeam/android_vendor_Micromax_A102 ~/$1/vendor/Micromax/A102/
+echo -ne "Done\r"
 ;;
-4) echo "Downloading"
+4) echo -ne "Downloading\r"
 git clone -q https://github.com/TestMT6572/android_device_Explay_JoyTV ~/$1/device/Explay/JoyTV/
 git clone -q https://github.com/TestMT6572/android_vendor_Explay_JoyTV ~/$1/vendor/Explay/JoyTV/
+echo -ne "Done\r"
 ;;
-*) echo "What u write?"
+*) echo -ne "What u write?\r"
 ;;
 esac
 else
@@ -111,15 +115,20 @@ cd /home/$USER/prepare/tmp/ && chmod +x updateScript && ./updateScript
 ;;
 mk|MK) if [ -n "$1" ]
 then
-echo "Start build in: /home/$USER/"$1"/"
+echo -ne "Start build in: /home/$USER/"$1"/ \r"
 sleep 1
-echo -n "Enter device name: "
+echo -ne "Enter device name: \r"
 read device
-echo "Device name: "$device""
+echo -ne "Enter build type (eng, user, userdebug): \r"
+read type
+echo -ne "Device name: "$device"
+Build type: "$type"\r"
+sleep 1
 cd /home/$USER/"$1" && . build/envsetup.sh
 cd /home/$USER/"$1" && export LC_ALL=C
 cd /home/$USER/"$1" && lunch "$device"-userdebug
-echo -n "Write n for disable cache or Write cache space (in Gigabytes): "
+sleep 1
+echo -ne "Write n for disable cache or Write cache space (in Gigabytes): \r"
 read ccache_space
 case "$ccache_space" in
     
