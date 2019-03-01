@@ -184,11 +184,6 @@ echo -ne "100%\r"
 echo "Patched!"
 exit 0
 ;;
-u|U) echo "Your version:"
-cat /home/$USER/bin/prepare/version/version.txt
-git clone -q https://github.com/RomanDesigner/script-updater /home/$USER/prepare/tmp/
-cd /home/$USER/prepare/tmp/ && chmod +x updateScript && ./updateScript
-;;
 mk|MK) 
 read -r -p "Are you sure? [y/N] " response
 case "$response" in
@@ -223,6 +218,11 @@ esac
 cd $mainpath && mka bacon
 echo "Done"
 exit 0
+;;
+u|U) echo "Your version:"
+cat /home/$USER/bin/prepare/version/version.txt
+git clone -q https://github.com/RomanDesigner/script-updater /home/$USER/prepare/tmp/
+cd /home/$USER/prepare/tmp/ && chmod +x updateScript && ./updateScript
 ;;
 *) echo "Error 1: command not found"
 ;;
