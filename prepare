@@ -1,11 +1,21 @@
 #!/bin/bash
+mainpath=$PWD
        echo -n "
 Roman   - R
 Build   - B
 Prepare - P
 System  - S
-
-Select action:
+"
+if [ "$mainpath" = /home/$USER/ ]
+then
+echo " Please change directory to working directory. "
+exit 0
+else
+echo " Working directory: $mainpath
+"
+fi
+echo -n "
+Select action: 
 
 mk) Build a ROM
 
@@ -15,7 +25,7 @@ s) Download tree & vendor
 
 p) Patch ROM (LOS based) for work on MT6572 (kernel 3.4.67)  
       
-los) Download LOS 14.1 to your folder (select: 'prepare your_folder' )
+los) Download LOS 14.1 to your folder
 
 Your choose: "
 
