@@ -12,7 +12,7 @@ then
 echo " Please change directory to working directory. "
 exit 0
 else
-echo " Working directory: "$mainpath"/
+echo "Working directory: "$mainpath"/
 "
 fi
 echo -n "
@@ -189,10 +189,19 @@ cat /home/$USER/bin/prepare/version/version.txt
 echo "
 Downloading updater code..."
 git clone -q https://github.com/RomanDesigner/script-updater /home/$USER/prepare/tmp/
-echo -ne "\r"
+echo -ne " \r"
 cd /home/$USER/prepare/tmp/ && chmod +x updateScript && ./updateScript
 ;;
 mk|MK) 
+read -r -p "Are you sure? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+        ;;
+    *)
+        echo "Building canceled."
+        exit 0
+        ;;
+esac
 echo "Start build in: /home/$USER/"$1"/"
 sleep 1
 echo "Enter device name: lineage_"
@@ -211,10 +220,10 @@ case "$ccache_space" in
     
 n|N) echo -ne "Ccache disabled.\r"
 ;;
-*) cd /home/$USER/"$1" && prebuilts/misc/linux-x86/ccache/ccache -M "$ccache_space"G
+*) cd $mainpath && prebuilts/misc/linux-x86/ccache/ccache -M "$ccache_space"G
 ;;
 esac
-cd /home/$USER/"$1" && mka bacon
+cd $mainpath && mka bacon
 echo "Done"
 exit 0
 ;;
