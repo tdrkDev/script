@@ -5,13 +5,14 @@ Roman   - R
 Build   - B
 Prepare - P
 System  - S
+
 "
-if [ "$mainpath" = /home/$USER/ ]
+if [ "$mainpath" = /home/$USER ]
 then
 echo " Please change directory to working directory. "
 exit 0
 else
-echo " Working directory: $mainpath
+echo " Working directory: "$mainpath"/
 "
 fi
 echo -n "
@@ -31,118 +32,184 @@ Your choose: "
 
 read item
 case "$item" in
-    los|LOS) if [ -n "$1" ]
-then
-echo "Starting"
-rm -rf ~/$1
-cd ~/$1 && repo init -u git://github.com/LineageOS/android.git -b cm-14.1
-cd ~/$1 && repo sync
+    los|LOS) read -r -p "Are you sure? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+        ;;
+    *)
+        echo "Download canceled."
+        exit 0
+        ;;
+esac
+    echo "Starting"
+rm -rf $mainpath
+cd $mainpath && repo init -u git://github.com/LineageOS/android.git -b cm-14.1
+cd $mainpath && repo sync
 echo "Done"
 exit 0
-else
-echo "Please run 'prepare your_folder'"
-exit 0
-fi
         ;;
-    s|S) if [ -n "$1" ]
-then
+    s|S) 
   echo -n "RBPS -
 Roman
 Build
 Prepare
 System
+
+Working directory: $mainpath/
+
 Select device:
+
 1) Lenovo A369i (LOLIPOP)
+
 2) Lenovo A369i (KitKat)
+
 3) Micromax A102
+
 4) Explay JoyTV
+
 Your choose: "
 
 read item
 case "$item" in
     
-1) echo -n "Downloading"
-git clone -q https://github.com/melekpro/Android-Device-Lenovo-A369i-LP ~/$1/device/Lenovo/A369i/
-git clone -q https://github.com/melekpro/Android-Vendor-Lenovo-A369i-LP ~/$1/vendor/Lenovo/A369i/
+1) read -r -p "Are you sure? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+        ;;
+    *)
+        echo "Download canceled."
+        exit 0
+        ;;
+esac
+echo -n "Downloading"
+git clone -q https://github.com/melekpro/Android-Device-Lenovo-A369i-LP $mainpath/device/Lenovo/A369i/
+git clone -q https://github.com/melekpro/Android-Vendor-Lenovo-A369i-LP $mainpath/vendor/Lenovo/A369i/
 echo -n "Done"
 ;;
-2) echo -n "Downloading\r"
-git clone -q https://github.com/Manish4586/android_device_lenovo_a369i ~/$1/device/lenovo/a369i/
-git clone -q https://github.com/Manish4586/android_vendor_lenovo_a369i ~/$1/vendor/lenovo/a369i/
+2) read -r -p "Are you sure? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+        ;;
+    *)
+        echo "Download canceled."
+        exit 0
+        ;;
+esac 
+echo -n "Downloading\r"
+git clone -q https://github.com/Manish4586/android_device_lenovo_a369i $mainpath/device/lenovo/a369i/
+git clone -q https://github.com/Manish4586/android_vendor_lenovo_a369i $mainpath/vendor/lenovo/a369i/
 echo -ne "Done\r"
 ;;
-3) echo -n "Downloading"
-git clone -q https://github.com/AndroidDevelopersTeam/android_device_Micromax_A102 ~/$1/device/Micromax/A102/
-git clone -q https://github.com/AndroidDevelopersTeam/android_vendor_Micromax_A102 ~/$1/vendor/Micromax/A102/
+3) read -r -p "Are you sure? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+        ;;
+    *)
+        echo "Download canceled."
+        exit 0
+        ;;
+esac
+echo -n "Downloading"
+git clone -q https://github.com/AndroidDevelopersTeam/android_device_Micromax_A102 $mainpath/device/Micromax/A102/
+git clone -q https://github.com/AndroidDevelopersTeam/android_vendor_Micromax_A102 $mainpath/vendor/Micromax/A102/
 echo -n "Done"
 ;;
-4) echo -n "Downloading"
-git clone -q https://github.com/TestMT6572/android_device_Explay_JoyTV ~/$1/device/Explay/JoyTV/
-git clone -q https://github.com/TestMT6572/android_vendor_Explay_JoyTV ~/$1/vendor/Explay/JoyTV/
+4) read -r -p "Are you sure? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+        ;;
+    *)
+        echo "Download canceled."
+        exit 0
+        ;;
+esac
+echo -n "Downloading"
+git clone -q https://github.com/TestMT6572/android_device_Explay_JoyTV $mainpath/device/Explay/JoyTV/
+git clone -q https://github.com/TestMT6572/android_vendor_Explay_JoyTV $mainpath/vendor/Explay/JoyTV/
 echo -n "Done"
 ;;
 *) echo -n "What u write?"
 ;;
 esac
-else
-echo "Please run 'prepare your_folder'"
-exit 0
-fi
         ;;
 
-p|P) if [ -n "$1" ]
-then
+p|P) read -r -p "Are you sure? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+        ;;
+    *)
+        echo "Patching canceled."
+        exit 0
+        ;;
+esac
 echo "Removing old folders..."
-rm -Rfv ~/$1/external/wpa_supplicant_8
-rm -Rfv ~/$1/frameworks/av
-rm -Rfv ~/$1/frameworks/base
-rm -Rfv ~/$1/frameworks/native
-rm -Rfv ~/$1/frameworks/opt/telephony
-rm -Rfv ~/$1/packages/apps/Dialer
-rm -Rfv ~/$1/packages/services/Telephony
-rm -Rfv ~/$1/system/bt
-rm -Rfv ~/$1/system/core
-rm -Rfv ~/$1/system/netd
-rm -Rfv ~/$1/system/sepolicy
-rm -Rfv ~/$1/vendor/codeaurora/telephony
+echo "0%"
+rm -Rf $mainpath/external/wpa_supplicant_8
+echo -ne "8%\r"
+rm -Rf $mainpath/frameworks/av
+echo -ne "16%\r"
+rm -Rf $mainpath/frameworks/base
+echo -ne "24%\r"
+rm -Rf $mainpath/frameworks/native
+echo -ne "32%\r"
+rm -Rf $mainpath/frameworks/opt/telephony
+echo -ne "40%\r"
+rm -Rf $mainpath/packages/apps/Dialer
+echo -ne "48%\r"
+rm -Rf $mainpath/packages/services/Telephony
+echo -ne "56%\r"
+rm -Rf $mainpath/system/bt
+echo -ne "64%\r"
+rm -Rf $mainpath/system/core
+echo -ne "72%\r"
+rm -Rf $mainpath/system/netd
+echo -ne "80%\r"
+rm -Rf $mainpath/system/sepolicy
+echo -ne "88%\r"
+rm -Rf ~$mainpath/vendor/codeaurora/telephony
+echo -ne "100%\r"
+sleep 1
 echo "Trying to patch..."
-cp -rv ~/android/patches/external/. ~/$1/external/
-cp -rv ~/android/patches/frameworks/. ~/$1/frameworks/
-cp -rv ~/android/patches/packages/. ~/$1/packages/
-cp -rv ~/android/patches/system/. ~/$1/system/
-cp -rv ~/android/patches/vendor/. ~/$1/vendor
+echo "0%"
+cp -r ~/android/patches/external/. $mainpath/external/
+echo -ne "20%\r"
+cp -r ~/android/patches/frameworks/. $mainpath/frameworks/
+echo -ne "40%\r"
+cp -r ~/android/patches/packages/. $mainpath/packages/
+echo -ne "60%\r"
+cp -r ~/android/patches/system/. $mainpath/system/
+echo -ne "80%\r"
+cp -r ~/android/patches/vendor/. $mainpath/vendor
+echo -ne "100%\r"
 echo "Patched!"
 exit 0
- else
-echo "Please run 'prepare your_folder'"
-exit 0
-fi
 ;;
 u|U) echo "Your version:"
 cat /home/$USER/bin/prepare/version/version.txt
+echo "
+Downloading updater code..."
 git clone -q https://github.com/RomanDesigner/script-updater /home/$USER/prepare/tmp/
+echo -ne "\r"
 cd /home/$USER/prepare/tmp/ && chmod +x updateScript && ./updateScript
 ;;
-mk|MK) if [ -n "$1" ]
-then
-echo -n "Start build in: /home/$USER/"$1"/"
+mk|MK) 
+echo "Start build in: /home/$USER/"$1"/"
 sleep 1
-echo -n "Enter device name: \r"
+echo "Enter device name: lineage_"
 read device
-echo -n "Enter build type (eng, user, userdebug): "
+echo "Enter build type (eng, user, userdebug): "
 read type
-echo -n "Device name: "$device"
-Build type: "$type"\r"
+echo "Device name: "$device", Build type: "$type""
 sleep 1
-cd /home/$USER/"$1" && . build/envsetup.sh
-cd /home/$USER/"$1" && export LC_ALL=C
-cd /home/$USER/"$1" && lunch "$device"-userdebug
+cd $mainpath && . build/envsetup.sh
+cd $mainpath && export LC_ALL=C
+cd $mainpath && lunch "$device"-"$type"
 sleep 1
 echo -ne "Write n for disable cache or Write cache space (in Gigabytes): "
 read ccache_space
 case "$ccache_space" in
     
-n|N) echo "Ccache disabled."
+n|N) echo -ne "Ccache disabled.\r"
 ;;
 *) cd /home/$USER/"$1" && prebuilts/misc/linux-x86/ccache/ccache -M "$ccache_space"G
 ;;
@@ -150,11 +217,7 @@ esac
 cd /home/$USER/"$1" && mka bacon
 echo "Done"
 exit 0
-else
-echo "Please run 'prepare your_folder'"
-exit 0
-fi
 ;;
-*) echo "What u write?"
+*) echo "Error 1: command not found"
 ;;
 esac
