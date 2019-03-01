@@ -188,7 +188,6 @@ u|U) echo "Your version:"
 cat /home/$USER/bin/prepare/version/version.txt
 echo "Downloading updater code..."
 git clone -q https://github.com/RomanDesigner/script-updater /home/$USER/prepare/tmp/
-echo -ne "\r "
 cd /home/$USER/prepare/tmp/ && chmod +x updateScript && ./updateScript
 ;;
 mk|MK) 
