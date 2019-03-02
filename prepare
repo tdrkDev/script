@@ -24,6 +24,8 @@ u) Update script
 
 s) Download tree & vendor 
 
+k) Download kernel
+
 p) Patch ROM (LOS based) for work on MT6572 (kernel 3.4.67)  
       
 los) Download LOS 14.1 to your folder
@@ -217,6 +219,57 @@ cd $mainpath && mka bacon
 echo "Done"
 exit 0
 ;;
+k|K) 
+  echo -n "RBPS -
+Roman
+Build
+Prepare
+System
+
+Working directory: $mainpath/
+
+Select device:
+
+1) Lenovo A369i (3.4.67)
+
+2) Lenovo A369i (3.10.89)
+
+Your choose: "
+
+read item
+case "$item" in
+    
+1) read -r -p "Are you sure? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+        ;;
+    *)
+        echo "Download canceled."
+        exit 0
+        ;;
+esac
+echo -n "Downloading"
+
+echo -n "Done"
+;;
+2) read -r -p "Are you sure? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+        ;;
+    *)
+        echo "Download canceled."
+        exit 0
+        ;;
+esac 
+echo -n "Downloading\r"
+git clone -q git@github.com:Manish4586/android_kernel_lenovo_a369i.git $mainpath/kernel/lenovo/a369i/
+echo -ne "Done\r"
+;;
+*) echo -n "What u write?"
+;;
+esac
+        ;;
+
 u|U) echo "Your version:"
 cat /home/$USER/bin/prepare/version/version.txt
 git clone -q https://github.com/RomanDesigner/script-updater /home/$USER/prepare/tmp/
