@@ -143,7 +143,6 @@ case "$response" in
         ;;
 esac
 echo "Removing old folders..."
-echo "0%"
 rm -Rf $mainpath/external/wpa_supplicant_8
 echo -ne "8%\r"
 rm -Rf $mainpath/frameworks/av
@@ -170,7 +169,6 @@ rm -Rf ~$mainpath/vendor/codeaurora/telephony
 echo -ne "100%\r"
 sleep 1
 echo "Trying to patch..."
-echo "0%"
 cp -r ~/android/patches/external/. $mainpath/external/
 echo -ne "20%\r"
 cp -r ~/android/patches/frameworks/. $mainpath/frameworks/
