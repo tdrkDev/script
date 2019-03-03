@@ -26,6 +26,8 @@ s) Download tree & vendor
 
 k) Download kernel
 
+port) Port ROM (not working yet)
+
 p) Patch ROM (LOS based) for work on MT6572 (kernel 3.4.67)  
       
 los) Download LOS 14.1 to your folder
@@ -47,6 +49,11 @@ esac
 rm -rf $mainpath
 cd $mainpath && repo init -u git://github.com/LineageOS/android.git -b cm-14.1
 cd $mainpath && repo sync
+rm -Rf $mainpath/packages/providers/MediaProvider
+rm -Rf $mainpath/packages/providers/DownloadProvider
+echo "Do patches for latest commits..."
+git clone -q https://github.com/omnirom/android_packages_providers_MediaProvider.git -b android-7.1 $mainpath/packages/providers/MediaProvider
+git clone -q https://github.com/omnirom/android_packages_providers_DownloadProvider.git -b android-7.1 $mainpath/packages/providers/DownloadProvider
 echo "Done"
 exit 0
         ;;
@@ -61,9 +68,9 @@ Working directory: $mainpath/
 
 Select device:
 
-1) Lenovo A369i (LOLIPOP)
+1) Lenovo A369i (melekpro)
 
-2) Lenovo A369i (KitKat)
+2) Lenovo A369i (Manish4586)
 
 3) Micromax A102
 
@@ -230,9 +237,7 @@ Working directory: $mainpath/
 
 Select device:
 
-1) Lenovo A369i (3.4.67)
-
-2) Lenovo A369i (3.10.89)
+1) Lenovo A369i (3.10.89)
 
 Your choose: "
 
@@ -247,29 +252,15 @@ case "$response" in
         echo "Download canceled."
         exit 0
         ;;
-esac
-echo -n "Downloading"
-
-echo -n "Done"
-;;
-2) read -r -p "Are you sure? [y/N] " response
-case "$response" in
-    [yY][eE][sS]|[yY]) 
-        ;;
-    *)
-        echo "Download canceled."
-        exit 0
-        ;;
 esac 
-echo -n "Downloading\r"
+echo "Downloading"
 git clone -q git@github.com:Manish4586/android_kernel_lenovo_a369i.git $mainpath/kernel/lenovo/a369i/
-echo -ne "Done\r"
+echo -ne "Done"
 ;;
-*) echo -n "What u write?"
+*) echo "What u write?"
 ;;
 esac
         ;;
-
 u|U) echo "Your version:"
 cat /home/$USER/bin/prepare/version/version.txt
 git clone -q https://github.com/RomanDesigner/script-updater /home/$USER/prepare/tmp/
