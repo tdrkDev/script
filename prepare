@@ -26,6 +26,8 @@ s) Download tree & vendor
 
 k) Download kernel
 
+L) setuo needed libs for build
+
 port) Port ROM (not working yet)
 
 p) Patch ROM (LOS based) for work on MT6572 (kernel 3.4.67)  
@@ -54,6 +56,22 @@ rm -Rf $mainpath/packages/providers/DownloadProvider
 echo "Do patches for latest commits..."
 git clone -q https://github.com/omnirom/android_packages_providers_MediaProvider.git -b android-7.1 $mainpath/packages/providers/MediaProvider
 git clone -q https://github.com/omnirom/android_packages_providers_DownloadProvider.git -b android-7.1 $mainpath/packages/providers/DownloadProvider
+echo "Done"
+exit 0
+        ;;
+        l|L) read -r -p "Are you sure? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+        ;;
+    *)
+        echo "Download canceled."
+        exit 0
+        ;;
+esac
+    echo "Starting"
+    sudo apt-get update && sudo apt-get dist-upgrade
+    sudo apt-get install git-core gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip bc ccache git imagemagick lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libssl-dev libwxgtk3.0-dev libxml2 lzop pngcrush rsync schedtool squashfs-tools openjdk-8-jdk p7zip-full meld brotli qt4-qmake qt5-qmake android-tools-adb android-tools-fastboot python-networkx python-pip texinfo maven
+mkdir ~/bin && PATH=~/bin:$PATH && curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo && chmod a+x ~/bin/repo
 echo "Done"
 exit 0
         ;;
