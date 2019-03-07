@@ -38,6 +38,11 @@ Your choose: "
 
 read item
 case "$item" in
+[prPR]|[oO]|[vV]|[iI]|[dD]|[eE]|[rR]|[sS]) echo "Patching providers..."
+cd $mainpath/packages/providers/ && rm -Rf MediaProvider
+cd $mainpath/packages/providers/ && rm -Rf DownloadProvider
+cp -r /home/$USER/android/providerpatch/. $mainpath/
+;;
     los|LOS) read -r -p "Are you sure? [y/N] " response
 case "$response" in
     [yY][eE][sS]|[yY]) 
